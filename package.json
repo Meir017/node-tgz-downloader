@@ -8,7 +8,7 @@
         "request-promise": "^4.2.2"
     },
     "bin": {
-        "download-tgz": "./lib/downloader.js"
+        "download-tgz": "./lib/index.js"
     },
     "license": "MIT",
     "repository": {
