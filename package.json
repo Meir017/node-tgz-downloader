@@ -5,6 +5,7 @@
     "version": "1.0.0",
     "dependencies": {
         "download-file": "^0.1.5",
+        "request": "^2.83.0",
         "request-promise": "^4.2.2"
     },
     "bin": {
