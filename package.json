@@ -1,20 +1,22 @@
 {
-    "name": "node-tgz-downloader",
-    "description": "Downloads all of the node_modules based on a package-lock.json file",
-    "authors": "Meir017",
-    "version": "1.0.1",
-    "dependencies": {
-        "download-file": "^0.1.5",
-        "request": "^2.83.0",
-        "request-promise": "^4.2.2"
-    },
-    "main": "lib",
-    "bin": {
-        "download-tgz": "lib/index.js"
-    },
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Meir017/node-tgz-downloader.git"
-    }
+  "name": "node-tgz-downloader",
+  "description":
+    "Downloads all of the node_modules based on a package-lock.json file",
+  "authors": "Meir017",
+  "version": "1.0.1",
+  "dependencies": {
+    "download-file": "^0.1.5",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
+  },
+  "main": "lib",
+  "bin": {
+    "download-tgz": "lib/index.js"
+  },
+  "files": ["lib"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Meir017/node-tgz-downloader.git"
+  }
 }
