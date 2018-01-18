@@ -8,8 +8,9 @@
         "request": "^2.83.0",
         "request-promise": "^4.2.2"
     },
+    "main": "lib",
     "bin": {
-        "download-tgz": "./bin/index.js"
+        "download-tgz": "lib/index.js"
     },
     "license": "MIT",
     "repository": {
