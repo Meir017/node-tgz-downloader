@@ -9,7 +9,7 @@
         "request-promise": "^4.2.2"
     },
     "bin": {
-        "download-tgz": "bin/index.js"
+        "download-tgz": "./bin/index.js"
     },
     "license": "MIT",
     "repository": {
