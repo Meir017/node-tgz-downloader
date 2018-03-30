@@ -1,11 +1,10 @@
 {
-  "name": "node-tgz-downloader2",
+  "name": "node-tgz-downloader",
   "description": "Downloads all of the node_modules based on a package-lock.json file",
   "authors": "Meir017",
   "version": "1.1.1",
   "dependencies": {
     "download-file": "^0.1.5",
-    "node-tgz-downloader": "^1.0.1",
     "request": "^2.85.0",
     "request-promise": "^4.2.2"
   },
