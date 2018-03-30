@@ -1,16 +1,17 @@
 {
-  "name": "node-tgz-downloader",
+  "name": "node-tgz-downloader2",
   "description": "Downloads all of the node_modules based on a package-lock.json file",
   "authors": "Meir017",
   "version": "1.1.0",
   "dependencies": {
     "download-file": "^0.1.5",
+    "node-tgz-downloader": "^1.0.1",
     "request": "^2.85.0",
     "request-promise": "^4.2.2"
   },
   "main": "lib",
   "bin": {
-    "download-tgz": "lib/index.js"
+    "download-tgz": "bin/download-tgz"
   },
   "files": [
     "lib"
