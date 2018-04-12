@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+const [, , name, version] = process.argv;
+
+const crawler = require('../lib/crawler.js');
+const { downloadFromSet } = require('../lib/downloader');
+require('colors');
+
+if(!name) {
+    throw new Error('must provide a package name');
+}
+
+const start = Date.now();
+crawler.getDependencies({ name, version })
+    .then(tarballsSet => downloadFromSet(tarballsSet));

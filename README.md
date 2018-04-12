@@ -2,7 +2,11 @@
 [![NPM Downloads][downloads-image]][downloads-url]
 
 # node-tgz-downloader
-Downloads all of the node_modules from a package-lock.json as .tgz
+Downloads all of the tarballs based on one of the following:
+
+- local `package-lock.json` file
+- url to a `package-lock.json`
+- name of package (NEW)
 
 ## install
 
@@ -12,16 +16,22 @@ npm install node-tgz-downloader -g
 
 ## usage
 
-install from local `package-lock.json` or from a url
+from local `package-lock.json` file:
 
 ```bash
-download-tgz path/to/package-lock.json
+download-package-lock-tgzs path/to/package-lock.json
 ```
 
-or
+from url:
 
 ```bash
-download-tgz https://raw.githubusercontent.com/Meir017/node-tgz-downloader/master/package-lock.json
+download-package-lock-tgzs https://raw.githubusercontent.com/Meir017/node-tgz-downloader/master/package-lock.json
+```
+
+from package name:
+
+```base
+download-dependencies-tgzs @angular/cli
 ```
 
 [npm-image]: https://img.shields.io/npm/v/node-tgz-downloader.svg
