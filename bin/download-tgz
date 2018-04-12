@@ -1,9 +1,13 @@
 #!/usr/bin/env node
 
-const [, , packageLockPath] = process.argv;
+const [, , packageLockUri] = process.argv;
 
 const downloader = require("../lib/downloader");
+const {retrievePackageLock} = require('../lib/package-lock-retriever');
 
-if (packageLockPath) {
-  downloader.downloadFromPackageLock(packageLockPath);
+if (packageLockUri) {
+  retrievePackageLock(packageLockUri)
+    .then(packageLock => {
+      downloader.downloadFromPackageLock(packageLock);
+  });
 }
