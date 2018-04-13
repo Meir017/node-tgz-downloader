@@ -31,7 +31,7 @@ download-tgz package-lock https://raw.githubusercontent.com/Meir017/node-tgz-dow
 from package name:
 
 ```base
-download-tgz package @angular/cli
+download-tgz package @angular/cli --devDependencies --peerDependencies
 ```
 
 [npm-image]: https://img.shields.io/npm/v/node-tgz-downloader.svg
