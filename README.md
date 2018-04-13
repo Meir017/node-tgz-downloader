@@ -19,19 +19,19 @@ npm install node-tgz-downloader -g
 from local `package-lock.json` file:
 
 ```bash
-download-package-lock-tgzs path/to/package-lock.json
+download-tgz package-lock path/to/package-lock.json
 ```
 
 from url:
 
 ```bash
-download-package-lock-tgzs https://raw.githubusercontent.com/Meir017/node-tgz-downloader/master/package-lock.json
+download-tgz package-lock https://raw.githubusercontent.com/Meir017/node-tgz-downloader/master/package-lock.json
 ```
 
 from package name:
 
 ```base
-download-dependencies-tgzs @angular/cli
+download-tgz package @angular/cli
 ```
 
 [npm-image]: https://img.shields.io/npm/v/node-tgz-downloader.svg

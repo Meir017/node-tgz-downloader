@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+
+require('colors');
+
+const program = require('commander');
+const packageJson = require('../package.json');
+
+const { retrievePackageLock } = require('../lib/package-lock-retriever');
+const crawler = require('../lib/crawler');
+const downloader = require('../lib/downloader');
+
+const start = Date.now();
+process.on('beforeExit', () => {
+    console.log(`completed in ${Date.now() - start}ms`.green);
+})
+
+program.version(packageJson.version);
+
+program
+    .command('package-lock <uri>')
+    .description('download tarballs based on a package-lock')
+    .action(async uri => {
+        const packageLock = await retrievePackageLock(uri);
+        downloader.downloadFromPackageLock(packageLock);
+    });
+program
+    .command('package <name> [version]')
+    .description('download tarballs based on a package and a version')
+    .option('--devDependencies')
+    .option('--peerDependencies')
+    .action(async (name, version, command) => {
+        const tarballsSet = await crawler.getDependencies({
+            name,
+            version,
+            devDependencies: command.devDependencies,
+            peerDependencies: command.peerDependencies
+        });
+        downloader.downloadFromSet(tarballsSet);
+    });
+
+program.parse(process.argv);
