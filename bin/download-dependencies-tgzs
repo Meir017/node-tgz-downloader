@@ -11,5 +11,10 @@ if(!name) {
 }
 
 const start = Date.now();
-crawler.getDependencies({ name, version })
-    .then(tarballsSet => downloadFromSet(tarballsSet));
+crawler.getDependencies({ name, version, devDependencies: false, peerDependencies: true })
+    .then(tarballsSet => downloadFromSet(tarballsSet))
+    .then(() => {
+        process.on('beforeExit', () => {
+            console.log(`completed in ${Date.now() - start}ms`.green);
+        });
+    });
