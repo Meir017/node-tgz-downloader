@@ -5,7 +5,7 @@ require('colors');
 const program = require('commander');
 const packageJson = require('../package.json');
 
-const { retrievePackageLock } = require('../lib/package-lock-retriever');
+const { retrieveJsonFile } = require('../lib/package-lock-retriever');
 const crawler = require('../lib/crawler');
 const downloader = require('../lib/downloader');
 
@@ -18,9 +18,9 @@ program.version(packageJson.version);
 
 program
     .command('package-lock <uri>')
-    .description('download tarballs based on a package-lock')
+    .description('download tarballs based on a package-lock.json')
     .action(async uri => {
-        const packageLock = await retrievePackageLock(uri);
+        const packageLock = await retrieveJsonFile(uri);
         downloader.downloadFromPackageLock(packageLock);
     });
 program
@@ -32,6 +32,20 @@ program
         const tarballsSet = await crawler.getDependencies({
             name,
             version,
+            devDependencies: command.devDependencies,
+            peerDependencies: command.peerDependencies
+        });
+        downloader.downloadFromSet(tarballsSet);
+    });
+program
+    .command('package-json <uri>')
+    .description('download tarballs based on a package.json')
+    .option('--devDependencies')
+    .option('--peerDependencies')
+    .action(async (uri, command) => {
+        const packageJson = await retrieveJsonFile(uri);
+        const tarballsSet = await crawler.getPackageJsonDependencies({
+            packageJson,
             devDependencies: command.devDependencies,
             peerDependencies: command.peerDependencies
         });

@@ -6,7 +6,9 @@ Downloads all of the tarballs based on one of the following:
 
 - local `package-lock.json` file
 - url to a `package-lock.json`
-- name of package (NEW)
+- name of package
+- local `package.json` file
+- url to a `package.json`
 
 ## install
 
@@ -16,7 +18,9 @@ npm install node-tgz-downloader -g
 
 ## usage
 
-from local `package-lock.json` file:
+### package-lock.json
+
+from local file:
 
 ```bash
 download-tgz package-lock path/to/package-lock.json
@@ -28,10 +32,24 @@ from url:
 download-tgz package-lock https://raw.githubusercontent.com/Meir017/node-tgz-downloader/master/package-lock.json
 ```
 
-from package name:
+### package name
 
 ```base
 download-tgz package @angular/cli --devDependencies --peerDependencies
+```
+
+### package.json
+
+from local file:
+
+```bash
+download-tgz package-json path/to/package.json
+```
+
+from url:
+
+```bash
+download-tgz package-json https://raw.githubusercontent.com/Meir017/node-tgz-downloader/master/package.json
 ```
 
 [npm-image]: https://img.shields.io/npm/v/node-tgz-downloader.svg
