@@ -6,6 +6,7 @@ const program = require('commander');
 const packageJson = require('../package.json');
 
 const { retrieveJsonFile } = require('../lib/package-lock-retriever');
+const { generatePackageJson } = require('../lib/npm-search');
 const crawler = require('../lib/crawler');
 const downloader = require('../lib/downloader');
 
@@ -51,5 +52,19 @@ program
         });
         downloader.downloadFromSet(tarballsSet);
     });
+program
+    .command('search <keyword>')
+    .description('download tarballs based on a npm registry search results')
+    .option('--devDependencies')
+    .option('--peerDependencies')
+    .action(async (keyword, command) => {
+        const packageJson = await generatePackageJson({ keyword });
+        const tarballsSet = await crawler.getPackageJsonDependencies({
+            packageJson,
+            devDependencies: command.devDependencies,
+            peerDependencies: command.peerDependencies
+        });
+        downloader.downloadFromSet(tarballsSet);
+    })
 
 program.parse(process.argv);

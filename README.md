@@ -9,6 +9,7 @@ Downloads all of the tarballs based on one of the following:
 - name of package
 - local `package.json` file
 - url to a `package.json`
+- search keyword
 
 ## install
 
@@ -50,6 +51,14 @@ from url:
 
 ```bash
 download-tgz package-json https://raw.githubusercontent.com/Meir017/node-tgz-downloader/master/package.json
+```
+
+### search keyword
+
+downloads the packages returned from an npm search query (https://registry.npmjs.org/-/v1/search?)
+
+```base
+download-tgz search tgz
 ```
 
 [npm-image]: https://img.shields.io/npm/v/node-tgz-downloader.svg
