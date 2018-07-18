@@ -11,9 +11,12 @@ const crawler = require('../lib/crawler');
 const downloader = require('../lib/downloader');
 
 const start = Date.now();
+process.on('unhandledRejection', error => {
+    console.log('[unhandledRejection]: ' + error.message, error);
+})
 process.on('beforeExit', () => {
     console.log(`completed in ${Date.now() - start}ms`.green);
-})
+});
 
 program.version(packageJson.version);
 
