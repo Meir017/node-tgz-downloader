@@ -2,7 +2,7 @@
   "name": "node-tgz-downloader",
   "description": "Downloads all of the node_modules based on a package-lock.json file",
   "authors": "Meir017",
-  "version": "3.8.1",
+  "version": "3.9.0",
   "keywords": [
     "tgz",
     "npm",
