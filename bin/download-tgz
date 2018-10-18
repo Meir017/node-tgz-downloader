@@ -5,11 +5,6 @@ require('colors');
 const program = require('commander');
 const packageJson = require('../package.json');
 
-const { retrieveJsonFile } = require('../lib/package-lock-retriever');
-const { generatePackageJson } = require('../lib/npm-search');
-const crawler = require('../lib/crawler');
-const downloader = require('../lib/downloader');
-
 const start = Date.now();
 process.on('unhandledRejection', error => {
     console.log('[unhandledRejection]: ' + error.message, error);
@@ -18,60 +13,38 @@ process.on('beforeExit', () => {
     console.log(`completed in ${Date.now() - start}ms`.green);
 });
 
+const commands = require('../lib/commands');
+
 program.version(packageJson.version);
 
 program
     .command('package-lock <uri>')
     .description('download tarballs based on a package-lock.json')
     .option('--directory [directory]')
-    .action(async (uri, command) => {
-        const packageLock = await retrieveJsonFile(uri);
-        downloader.downloadFromPackageLock(packageLock, command.directory);
-    });
+    .action(async (uri, command) => commands.packageLockCommand(uri, command));
+
 program
     .command('package <name> [version]')
     .description('download tarballs based on a package and a version')
     .option('--directory [directory]')
     .option('--devDependencies')
     .option('--peerDependencies')
-    .action(async (name, version, command) => {
-        const tarballsSet = await crawler.getDependencies({
-            name,
-            version,
-            devDependencies: command.devDependencies,
-            peerDependencies: command.peerDependencies
-        });
-        downloader.downloadFromSet(tarballsSet, command.directory);
-    });
+    .action(async (name, version, command) => commands.packageCommand(name, version, command));
+
 program
     .command('package-json <uri>')
     .description('download tarballs based on a package.json')
     .option('--directory [directory]')
     .option('--devDependencies')
     .option('--peerDependencies')
-    .action(async (uri, command) => {
-        const packageJson = await retrieveJsonFile(uri);
-        const tarballsSet = await crawler.getPackageJsonDependencies({
-            packageJson,
-            devDependencies: command.devDependencies,
-            peerDependencies: command.peerDependencies
-        });
-        downloader.downloadFromSet(tarballsSet, command.directory);
-    });
+    .action(async (uri, command) => commands.packageJsonCommand(uri, command));
+
 program
     .command('search <keyword>')
     .description('download tarballs based on a npm registry search results')
     .option('--directory [directory]')
     .option('--devDependencies')
     .option('--peerDependencies')
-    .action(async (keyword, command) => {
-        const packageJson = await generatePackageJson({ keyword });
-        const tarballsSet = await crawler.getPackageJsonDependencies({
-            packageJson,
-            devDependencies: command.devDependencies,
-            peerDependencies: command.peerDependencies
-        });
-        downloader.downloadFromSet(tarballsSet, command.directory);
-    })
+    .action(async (keyword, command) => commands.searchCommand(keyword, command));
 
 program.parse(process.argv);
