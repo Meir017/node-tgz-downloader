@@ -41,7 +41,6 @@ describe('the (package.json) command', () => {
         for (const directoryPath of paths) {
             expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
         }
-        expect(fs.existsSync(path.join(tarballsDirectory), 'express', 'express-4.16.4.tgz')).toBeTruthy();
     });
     /*
         it('should work for a big (react-scripts) package', async () => {
