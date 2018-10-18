@@ -23,13 +23,15 @@ program.version(packageJson.version);
 program
     .command('package-lock <uri>')
     .description('download tarballs based on a package-lock.json')
-    .action(async uri => {
+    .option('--directory [directory]')
+    .action(async (uri, command) => {
         const packageLock = await retrieveJsonFile(uri);
-        downloader.downloadFromPackageLock(packageLock);
+        downloader.downloadFromPackageLock(packageLock, command.directory);
     });
 program
     .command('package <name> [version]')
     .description('download tarballs based on a package and a version')
+    .option('--directory [directory]')
     .option('--devDependencies')
     .option('--peerDependencies')
     .action(async (name, version, command) => {
@@ -39,11 +41,12 @@ program
             devDependencies: command.devDependencies,
             peerDependencies: command.peerDependencies
         });
-        downloader.downloadFromSet(tarballsSet);
+        downloader.downloadFromSet(tarballsSet, command.directory);
     });
 program
     .command('package-json <uri>')
     .description('download tarballs based on a package.json')
+    .option('--directory [directory]')
     .option('--devDependencies')
     .option('--peerDependencies')
     .action(async (uri, command) => {
@@ -53,11 +56,12 @@ program
             devDependencies: command.devDependencies,
             peerDependencies: command.peerDependencies
         });
-        downloader.downloadFromSet(tarballsSet);
+        downloader.downloadFromSet(tarballsSet, command.directory);
     });
 program
     .command('search <keyword>')
     .description('download tarballs based on a npm registry search results')
+    .option('--directory [directory]')
     .option('--devDependencies')
     .option('--peerDependencies')
     .action(async (keyword, command) => {
@@ -67,7 +71,7 @@ program
             devDependencies: command.devDependencies,
             peerDependencies: command.peerDependencies
         });
-        downloader.downloadFromSet(tarballsSet);
+        downloader.downloadFromSet(tarballsSet, command.directory);
     })
 
 program.parse(process.argv);
