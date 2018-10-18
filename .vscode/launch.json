@@ -33,7 +33,9 @@
             "program": "${workspaceFolder}/bin/download-tgz",
             "args": [
                 "package-lock",
-                "./package-lock.json"
+                "./package-lock.json",
+                "--directory",
+                "custom-tarballs"
             ]
         },
         {
