@@ -19,7 +19,7 @@
     "semver": "^5.5.0",
     "tar": "^4.4.6"
   },
-  "main": "lib",
+  "main": "lib/downloader.js",
   "bin": {
     "download-tgz": "bin/download-tgz"
   },
