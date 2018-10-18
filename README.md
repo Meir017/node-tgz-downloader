@@ -19,7 +19,17 @@ npm install node-tgz-downloader -g
 
 ## usage
 
-### package-lock.json
+### From Code:
+
+```js
+const downloader = require('node-tgz-downloader');
+
+downloader.downloadFromPackageLock('path/to/package-lock');
+```
+
+### From Command Line:
+
+#### package-lock.json
 
 from local file:
 
@@ -33,13 +43,13 @@ from url:
 download-tgz package-lock https://raw.githubusercontent.com/Meir017/node-tgz-downloader/master/package-lock.json
 ```
 
-### package name
+#### package name
 
 ```base
 download-tgz package @angular/cli --devDependencies --peerDependencies
 ```
 
-### package.json
+#### package.json
 
 from local file:
 
@@ -53,7 +63,7 @@ from url:
 download-tgz package-json https://raw.githubusercontent.com/Meir017/node-tgz-downloader/master/package.json
 ```
 
-### search keyword
+#### search keyword
 
 downloads the packages returned from an npm search query (https://registry.npmjs.org/-/v1/search?)
 
