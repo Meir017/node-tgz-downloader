@@ -58,6 +58,7 @@ program
 program
     .command('from-generated <uri>')
     .description('download tarballs using a generated file created by the generate command')
-    .action(uri => commands.fromGeneratedCommand(uri));
+    .option('--directory [directory]')
+    .action((uri, command) => commands.fromGeneratedCommand(uri, command));
 
 program.parse(process.argv);

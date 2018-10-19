@@ -12,7 +12,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
 
 describe('the (package.json) command', () => {    
     afterEach(() => {
-        cleanup();
+        cleanup(tarballsDirectory);
     });
 
     it('should work for a simple package', async () => {
@@ -65,7 +65,7 @@ describe('the (package.json) command', () => {
 
 describe('the (package-lock.json) command', () => {
     afterEach(() => {
-        cleanup();
+        cleanup(tarballsDirectory);
     });
 
     it('should work for a simple package', async () => {
@@ -117,7 +117,7 @@ describe('the (package-lock.json) command', () => {
 
 describe('the (package) command', () => {
     afterEach(() => {
-        cleanup();
+        cleanup(tarballsDirectory);
     });
 
     it('should work for a simple package', async () => {
@@ -167,12 +167,12 @@ describe('the (package) command', () => {
 
 });
 
-function cleanup() {
+function cleanup(directory) {
     try {
-        if (fs.existsSync(tarballsDirectory))
-            rimraf.sync(tarballsDirectory);
+        if (fs.existsSync(directory))
+            rimraf.sync(directory);
     } catch (error) {
-        cleanup();
+        cleanup(directory);
     }
 }
 
