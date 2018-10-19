@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/Meir017/node-tgz-downloader/tree/master.svg?style=svg)](https://circleci.com/gh/Meir017/node-tgz-downloader/tree/master)
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
 
