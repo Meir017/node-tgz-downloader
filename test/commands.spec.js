@@ -131,7 +131,7 @@ describe('the (package) command', () => {
     });
 
     it('should work for the current package', async () => {
-        await commands.packageCommand('node-tgz-downloader', {
+        await commands.packageCommand('node-tgz-downloader', undefined, {
             directory: tarballsDirectory
         });
         const paths = [
