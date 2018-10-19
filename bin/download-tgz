@@ -7,7 +7,7 @@ const packageJson = require('../package.json');
 
 const start = Date.now();
 process.on('unhandledRejection', error => {
-    console.log('[unhandledRejection]: ' + error.message, error);
+    console.log(`[${'unhandledRejection'.red}]: ${error.message}`, error);
 })
 process.on('beforeExit', () => {
     console.log(`completed in ${Date.now() - start}ms`.green);
@@ -21,7 +21,7 @@ program
     .command('package-lock <uri>')
     .description('download tarballs based on a package-lock.json')
     .option('--directory [directory]')
-    .action(async (uri, command) => commands.packageLockCommand(uri, command));
+    .action((uri, command) => commands.packageLockCommand(uri, command));
 
 program
     .command('package <name> [version]')
@@ -29,7 +29,7 @@ program
     .option('--directory [directory]')
     .option('--devDependencies')
     .option('--peerDependencies')
-    .action(async (name, version, command) => commands.packageCommand(name, version, command));
+    .action((name, version, command) => commands.packageCommand(name, version, command));
 
 program
     .command('package-json <uri>')
@@ -37,7 +37,7 @@ program
     .option('--directory [directory]')
     .option('--devDependencies')
     .option('--peerDependencies')
-    .action(async (uri, command) => commands.packageJsonCommand(uri, command));
+    .action((uri, command) => commands.packageJsonCommand(uri, command));
 
 program
     .command('search <keyword>')
@@ -45,6 +45,19 @@ program
     .option('--directory [directory]')
     .option('--devDependencies')
     .option('--peerDependencies')
-    .action(async (keyword, command) => commands.searchCommand(keyword, command));
+    .action((keyword, command) => commands.searchCommand(keyword, command));
+
+program
+    .command('generate <name> [version]')
+    .description('generates the download links for a giving package and a version')
+    .option('--outputFile [outputFile]')
+    .option('--devDependencies')
+    .option('--peerDependencies')
+    .action((name, version, command) => commands.generateCommand(name, version, command));
+
+program
+    .command('from-generated <uri>')
+    .description('download tarballs using a generated file created by the generate command')
+    .action(uri => commands.fromGeneratedCommand(uri));
 
 program.parse(process.argv);
