@@ -3,7 +3,7 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [        
+    "configurations": [
         {
             "type": "node",
             "request": "launch",
@@ -68,6 +68,16 @@
                 "package-json",
                 "https://raw.githubusercontent.com/Meir017/node-tgz-downloader/master/package.json",
                 "--devDependencies"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "jasmine Tests",
+            "program": "${workspaceFolder}/node_modules/jasmine/bin/jasmine.js",
+            "args": [
+                "test/**/*spec.js",
+                "--reporter=jasmine-console-reporter"
             ]
         }
     ]

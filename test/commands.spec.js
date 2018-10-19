@@ -6,8 +6,12 @@ const path = require('path');
 
 const tarballsDirectory = './test-tarballs';
 
-describe('the (package.json) command', () => {
-    beforeEach(() => {
+require('../lib/logger').ignore = true;
+
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
+
+describe('the (package.json) command', () => {    
+    afterEach(() => {
         cleanup();
     });
 
@@ -60,7 +64,7 @@ describe('the (package.json) command', () => {
 });
 
 describe('the (package-lock.json) command', () => {
-    beforeEach(() => {
+    afterEach(() => {
         cleanup();
     });
 
@@ -112,7 +116,7 @@ describe('the (package-lock.json) command', () => {
 });
 
 describe('the (package) command', () => {
-    beforeEach(() => {
+    afterEach(() => {
         cleanup();
     });
 
