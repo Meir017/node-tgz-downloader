@@ -8,9 +8,7 @@ const tarballsDirectory = './test-tarballs';
 
 describe('the (package.json) command', () => {
     beforeEach(() => {
-        if (fs.existsSync(tarballsDirectory)) {
-            rimraf.sync(tarballsDirectory);
-        }
+        cleanup();
     });
 
     it('should work for a simple package', async () => {
@@ -63,9 +61,7 @@ describe('the (package.json) command', () => {
 
 describe('the (package-lock.json) command', () => {
     beforeEach(() => {
-        if (fs.existsSync(tarballsDirectory)) {
-            rimraf.sync(tarballsDirectory);
-        }
+        cleanup();
     });
 
     it('should work for a simple package', async () => {
@@ -117,9 +113,7 @@ describe('the (package-lock.json) command', () => {
 
 describe('the (package) command', () => {
     beforeEach(() => {
-        if (fs.existsSync(tarballsDirectory)) {
-            rimraf.sync(tarballsDirectory);
-        }
+        cleanup();
     });
 
     it('should work for a simple package', async () => {
@@ -168,6 +162,15 @@ describe('the (package) command', () => {
     });
 
 });
+
+function cleanup() {
+    try {
+        if (fs.existsSync(tarballsDirectory))
+            rimraf.sync(tarballsDirectory);
+    } catch (error) {
+        cleanup();
+    }
+}
 
 function getFilePath(file) {
     return path.join(__dirname, file);
