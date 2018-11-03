@@ -8,7 +8,7 @@ const tarballsDirectory = './test-tarballs';
 
 require('../lib/logger').ignore = true;
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 45000;
 
 describe('the (package.json) command', () => {    
     afterEach(() => {
