@@ -19,8 +19,14 @@ describe('the (package.json) command', () => {
         await commands.packageJsonCommand(getFilePath('./test-data/simple/package.json'), {
             directory: tarballsDirectory
         });
-        expect(fs.existsSync(path.join(tarballsDirectory), 'express')).toBeTruthy();
-        expect(fs.existsSync(path.join(tarballsDirectory), 'express', 'express-4.16.4.tgz')).toBeTruthy();
+        const paths = [
+            ['express'],
+            ['express', 'express-4.16.4.tgz'],
+        ];
+        for (const directoryPath of paths) {
+            const expectedPath = path.join(tarballsDirectory, ...directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
+        }
     });
 
     it('should work for the current package', async () => {
@@ -41,7 +47,8 @@ describe('the (package.json) command', () => {
             ['rimraf'], ['rimraf', 'rimraf-2.6.2.tgz']
         ];
         for (const directoryPath of paths) {
-            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+            const expectedPath = path.join(tarballsDirectory, ...directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
         }
     });
 
@@ -53,10 +60,11 @@ describe('the (package.json) command', () => {
             peerDependencies: true
         });
 
-        const paths = packageJson.dependencies.concat(...packageJson.peerDependencies, ...packageJson.devDependencies)
+        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.peerDependencies), ...Object.keys(packageJson.devDependencies));
 
         for (const directoryPath of paths) {
-            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+            const expectedPath = path.join(tarballsDirectory, directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
         }
     });
 
@@ -68,10 +76,11 @@ describe('the (package.json) command', () => {
             peerDependencies: true
         });
 
-        const paths = packageJson.dependencies.concat(...packageJson.peerDependencies, ...packageJson.devDependencies)
+        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.peerDependencies), ...Object.keys(packageJson.devDependencies));
 
         for (const directoryPath of paths) {
-            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+            const expectedPath = path.join(tarballsDirectory, directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
         }
     });
 });
@@ -85,8 +94,14 @@ describe('the (package-lock.json) command', () => {
         await commands.packageLockCommand(getFilePath('./test-data/simple/package-lock.json'), {
             directory: tarballsDirectory
         });
-        expect(fs.existsSync(path.join(tarballsDirectory), 'express')).toBeTruthy();
-        expect(fs.existsSync(path.join(tarballsDirectory), 'express', 'express-4.16.4.tgz')).toBeTruthy();
+        const paths = [
+            ['express'],
+            ['express', 'express-4.16.4.tgz'],
+        ];
+        for (const directoryPath of paths) {
+            const expectedPath = path.join(tarballsDirectory, ...directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
+        }
     });
 
     it('should work for the current package', async () => {
@@ -106,7 +121,8 @@ describe('the (package-lock.json) command', () => {
             ['rimraf'], ['rimraf', 'rimraf-2.6.2.tgz']
         ];
         for (const directoryPath of paths) {
-            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+            const expectedPath = path.join(tarballsDirectory, ...directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
         }
     });
 
@@ -121,7 +137,8 @@ describe('the (package-lock.json) command', () => {
         const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.devDependencies));
 
         for (const directoryPath of paths) {
-            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+            const expectedPath = path.join(tarballsDirectory, directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
         }
     });
 
@@ -136,7 +153,8 @@ describe('the (package-lock.json) command', () => {
         const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.devDependencies));
 
         for (const directoryPath of paths) {
-            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+            const expectedPath = path.join(tarballsDirectory, directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
         }
     });
 
@@ -172,7 +190,8 @@ describe('the (package) command', () => {
             ['rimraf'],
         ];
         for (const directoryPath of paths) {
-            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+            const expectedPath = path.join(tarballsDirectory, ...directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
         }
     });
 
@@ -187,7 +206,8 @@ describe('the (package) command', () => {
         const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.peerDependencies), ...Object.keys(packageJson.devDependencies));
 
         for (const directoryPath of paths) {
-            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+            const expectedPath = path.join(tarballsDirectory, directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
         }
     });
 
@@ -202,7 +222,8 @@ describe('the (package) command', () => {
         const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.peerDependencies), ...Object.keys(packageJson.devDependencies));
 
         for (const directoryPath of paths) {
-            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+            const expectedPath = path.join(tarballsDirectory, directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
         }
     });
 
