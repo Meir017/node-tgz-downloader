@@ -10,7 +10,7 @@ require('../lib/logger').ignore = true;
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 45000;
 
-describe('the (package.json) command', () => {    
+describe('the (package.json) command', () => {
     afterEach(() => {
         cleanup(tarballsDirectory);
     });
@@ -45,22 +45,35 @@ describe('the (package.json) command', () => {
         }
     });
 
-    xit('should work for a big (react-scripts) package', async () => {
+    it('should work for a big (react-scripts) package', async () => {
+        const packageJson = require('./test-data/big/react-scripts/package.json');
         await commands.packageJsonCommand(getFilePath('./test-data/big/react-scripts/package.json'), {
             directory: tarballsDirectory,
             devDependencies: true,
             peerDependencies: true
         });
+
+        const paths = packageJson.dependencies.concat(...packageJson.peerDependencies, ...packageJson.devDependencies)
+
+        for (const directoryPath of paths) {
+            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+        }
     });
 
-    xit('should work for a big (angular-cli) package', async () => {
+    it('should work for a big (angular-cli) package', async () => {
+        const packageJson = require('./test-data/big/angular-cli/package.json');
         await commands.packageJsonCommand(getFilePath('./test-data/big/angular-cli/package.json'), {
             directory: tarballsDirectory,
             devDependencies: true,
             peerDependencies: true
         });
-    });
 
+        const paths = packageJson.dependencies.concat(...packageJson.peerDependencies, ...packageJson.devDependencies)
+
+        for (const directoryPath of paths) {
+            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+        }
+    });
 });
 
 describe('the (package-lock.json) command', () => {
@@ -97,20 +110,34 @@ describe('the (package-lock.json) command', () => {
         }
     });
 
-    xit('should work for a big (react-scripts) package', async () => {
-        await commands.packageJsonCommand(getFilePath('./test-data/big/react-scripts/package.json'), {
+    it('should work for a big (react-scripts) package', async () => {
+        const packageJson = require('./test-data/big/react-scripts/package.json');
+        await commands.packageLockCommand(getFilePath('./test-data/big/react-scripts/package-lock.json'), {
             directory: tarballsDirectory,
             devDependencies: true,
             peerDependencies: true
         });
+
+        const paths = packageJson.dependencies.concat(...packageJson.devDependencies);
+
+        for (const directoryPath of paths) {
+            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+        }
     });
 
-    xit('should work for a big (angular-cli) package', async () => {
-        await commands.packageJsonCommand(getFilePath('./test-data/big/angular-cli/package.json'), {
+    it('should work for a big (angular-cli) package', async () => {
+        const packageJson = require('./test-data/big/angular-cli/package.json');
+        await commands.packageLockCommand(getFilePath('./test-data/big/angular-cli/package-lock.json'), {
             directory: tarballsDirectory,
             devDependencies: true,
             peerDependencies: true
         });
+
+        const paths = packageJson.dependencies.concat(...packageJson.devDependencies);
+
+        for (const directoryPath of paths) {
+            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+        }
     });
 
 });
@@ -149,20 +176,34 @@ describe('the (package) command', () => {
         }
     });
 
-    xit('should work for a big (react-scripts) package', async () => {
-        await commands.packageJsonCommand(getFilePath('./test-data/big/react-scripts/package.json'), {
+    it('should work for a big (react-scripts) package', async () => {
+        const packageJson = require('./test-data/big/react-scripts/package.json');
+        await commands.packageCommand(packageJson.name, packageJson.version, {
             directory: tarballsDirectory,
             devDependencies: true,
             peerDependencies: true
         });
+
+        const paths = packageJson.dependencies.concat(...packageJson.peerDependencies, ...packageJson.devDependencies)
+
+        for (const directoryPath of paths) {
+            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+        }
     });
 
-    xit('should work for a big (angular-cli) package', async () => {
-        await commands.packageJsonCommand(getFilePath('./test-data/big/angular-cli/package.json'), {
+    it('should work for a big (angular-cli) package', async () => {
+        const packageJson = require('./test-data/big/angular-cli/package.json');
+        await commands.packageCommand(packageJson.name, packageJson.version, {
             directory: tarballsDirectory,
             devDependencies: true,
             peerDependencies: true
         });
+        
+        const paths = packageJson.dependencies.concat(...packageJson.peerDependencies, ...packageJson.devDependencies)
+
+        for (const directoryPath of paths) {
+            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+        }
     });
 
 });
