@@ -37,7 +37,7 @@ describe('the (package.json) command', () => {
         const paths = [
             ['colors'], ['colors', 'colors-1.3.0.tgz'],
             ['commander'], ['commander', 'commander-2.16.0.tgz'],
-            ['mkdirp'], ['mkdirp', 'mkdirp-0.5.1-tgz'],
+            ['mkdirp'], ['mkdirp', 'mkdirp-0.5.1.tgz'],
             ['request'], ['request', 'request-2.87.0.tgz'],
             ['request-promise'], ['request-promise', 'request-promise-4.2.2.tgz'],
             ['semver'], ['semver', 'semver-5.5.0.tgz'],
@@ -111,7 +111,7 @@ describe('the (package-lock.json) command', () => {
         const paths = [
             ['colors'], ['colors', 'colors-1.3.0.tgz'],
             ['commander'], ['commander', 'commander-2.16.0.tgz'],
-            ['mkdirp'], ['mkdirp', 'mkdirp-0.5.1-tgz'],
+            ['mkdirp'], ['mkdirp', 'mkdirp-0.5.1.tgz'],
             ['request'], ['request', 'request-2.87.0.tgz'],
             ['request-promise'], ['request-promise', 'request-promise-4.2.2.tgz'],
             ['semver'], ['semver', 'semver-5.5.0.tgz'],
@@ -203,7 +203,7 @@ describe('the (package) command', () => {
             peerDependencies: true
         });
 
-        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.peerDependencies), ...Object.keys(packageJson.devDependencies));
+        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.devDependencies));
 
         for (const directoryPath of paths) {
             const expectedPath = path.join(tarballsDirectory, directoryPath);
@@ -219,7 +219,7 @@ describe('the (package) command', () => {
             peerDependencies: true
         });
 
-        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.peerDependencies), ...Object.keys(packageJson.devDependencies));
+        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.devDependencies));
 
         for (const directoryPath of paths) {
             const expectedPath = path.join(tarballsDirectory, directoryPath);
