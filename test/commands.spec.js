@@ -118,7 +118,7 @@ describe('the (package-lock.json) command', () => {
             peerDependencies: true
         });
 
-        const paths = packageJson.dependencies.concat(...packageJson.devDependencies);
+        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.devDependencies));
 
         for (const directoryPath of paths) {
             expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
@@ -133,7 +133,7 @@ describe('the (package-lock.json) command', () => {
             peerDependencies: true
         });
 
-        const paths = packageJson.dependencies.concat(...packageJson.devDependencies);
+        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.devDependencies));
 
         for (const directoryPath of paths) {
             expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
@@ -184,7 +184,7 @@ describe('the (package) command', () => {
             peerDependencies: true
         });
 
-        const paths = packageJson.dependencies.concat(...packageJson.peerDependencies, ...packageJson.devDependencies)
+        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.peerDependencies), ...Object.keys(packageJson.devDependencies));
 
         for (const directoryPath of paths) {
             expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
@@ -198,8 +198,8 @@ describe('the (package) command', () => {
             devDependencies: true,
             peerDependencies: true
         });
-        
-        const paths = packageJson.dependencies.concat(...packageJson.peerDependencies, ...packageJson.devDependencies)
+
+        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.peerDependencies), ...Object.keys(packageJson.devDependencies));
 
         for (const directoryPath of paths) {
             expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
