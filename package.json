@@ -37,6 +37,12 @@
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.9",
+    "@types/mkdirp": "^0.5.2",
+    "@types/request": "^2.48.1",
+    "@types/request-promise": "^4.1.42",
+    "@types/rimraf": "^2.0.2",
+    "@types/semver": "^5.5.0",
+    "@types/tar": "^4.0.0",
     "jasmine": "^3.2.0",
     "jasmine-console-reporter": "^3.1.0",
     "rimraf": "^2.6.2"
