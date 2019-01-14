@@ -121,7 +121,15 @@ describe('the (package) command', () => {
     });
 
     it('should work for a simple package', async () => {
-        await commands.packageCommand('express', '4.16.4', {
+        await commands.packageCommand("express@4.16.4", {
+            directory: tarballsDirectory
+        });
+        expect(fs.existsSync(path.join(tarballsDirectory), 'express')).toBeTruthy();
+        expect(fs.existsSync(path.join(tarballsDirectory), 'express', 'express-4.16.4.tgz')).toBeTruthy();
+    });
+
+    it('should work for a package array', async () => {
+        await commands.packageCommand(['express@4.16.4', 'colors'], {
             directory: tarballsDirectory
         });
         expect(fs.existsSync(path.join(tarballsDirectory), 'express')).toBeTruthy();
@@ -129,7 +137,7 @@ describe('the (package) command', () => {
     });
 
     it('should work for the current package', async () => {
-        await commands.packageCommand('node-tgz-downloader', undefined, {
+        await commands.packageCommand('node-tgz-downloader', {
             directory: tarballsDirectory
         });
         const paths = [
