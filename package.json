@@ -2,7 +2,7 @@
   "name": "node-tgz-downloader",
   "description": "Downloads all of the node_modules based on a package-lock.json file",
   "authors": "Meir017",
-  "version": "4.0.0",
+  "version": "4.0.0-alpha",
   "scripts": {
     "test": "jasmine test/**/*spec.js --reporter=jasmine-console-reporter"
   },
