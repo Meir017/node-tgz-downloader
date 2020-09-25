@@ -24,12 +24,12 @@ program
     .action((uri, command) => commands.packageLockCommand(uri, command));
 
 program
-    .command('package <name> [version]')
+    .command('package [packages...]')
     .description('download tarballs based on a package and a version')
     .option('--directory [directory]')
     .option('--devDependencies')
     .option('--peerDependencies')
-    .action((name, version, command) => commands.packageCommand(name, version, command));
+    .action((packages, command) => commands.packageCommand(packages, command));
 
 program
     .command('package-json <uri>')
