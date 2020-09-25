@@ -25,7 +25,35 @@ npm install node-tgz-downloader -g
 ```js
 const downloader = require('node-tgz-downloader');
 
-downloader.downloadFromPackageLock('path/to/package-lock');
+async function demo() {
+    await downloader.packageCommand('node-tgz-downloader', '4.0.0', {
+        directory: './my-output-directory',
+        devDependencies: true,
+        peerDependencies: false
+    });
+
+    await downloader.packageJsonCommand('https://path-to-package.json', {
+        directory: './my-output-directory',
+        devDependencies: true,
+        peerDependencies: false
+    });
+
+    await downloader.packageLockCommand('https://path-to-package-lock.json', {
+        directory: './my-output-directory',
+        devDependencies: true,
+        peerDependencies: false
+    });
+
+    await downloader.generateCommand('node-tgz-downloader', '4.0.0', {
+        outputFile: './my-output-file.generated',
+        devDependencies: true,
+        peerDependencies: false
+    });
+
+    await downloader.fromGeneratedCommand('./my-output-file.generated', {
+        directory: './my-output-directory'
+    });
+}
 ```
 
 ### From Command Line:
@@ -62,6 +90,18 @@ from url:
 
 ```bash
 download-tgz package-json https://raw.githubusercontent.com/Meir017/node-tgz-downloader/master/package.json
+```
+
+#### generate
+
+```base
+download-tgz generate @angular/cli --devDependencies --peerDependencies --outputFile ./my.generated
+```
+
+and later you can run
+
+```base
+download-tgz from-generated ./my.generated
 ```
 
 #### search keyword

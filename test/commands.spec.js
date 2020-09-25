@@ -8,9 +8,9 @@ const tarballsDirectory = './test-tarballs';
 
 require('../lib/logger').ignore = true;
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 45000;
 
-describe('the (package.json) command', () => {    
+describe('the (package.json) command', () => {
     afterEach(() => {
         cleanup(tarballsDirectory);
     });
@@ -19,8 +19,14 @@ describe('the (package.json) command', () => {
         await commands.packageJsonCommand(getFilePath('./test-data/simple/package.json'), {
             directory: tarballsDirectory
         });
-        expect(fs.existsSync(path.join(tarballsDirectory), 'express')).toBeTruthy();
-        expect(fs.existsSync(path.join(tarballsDirectory), 'express', 'express-4.16.4.tgz')).toBeTruthy();
+        const paths = [
+            ['express'],
+            ['express', 'express-4.16.4.tgz'],
+        ];
+        for (const directoryPath of paths) {
+            const expectedPath = path.join(tarballsDirectory, ...directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
+        }
     });
 
     it('should work for the current package', async () => {
@@ -31,7 +37,7 @@ describe('the (package.json) command', () => {
         const paths = [
             ['colors'], ['colors', 'colors-1.3.0.tgz'],
             ['commander'], ['commander', 'commander-2.16.0.tgz'],
-            ['mkdirp'], ['mkdirp', 'mkdirp-0.5.1-tgz'],
+            ['mkdirp'], ['mkdirp', 'mkdirp-0.5.1.tgz'],
             ['request'], ['request', 'request-2.87.0.tgz'],
             ['request-promise'], ['request-promise', 'request-promise-4.2.2.tgz'],
             ['semver'], ['semver', 'semver-5.5.0.tgz'],
@@ -41,26 +47,42 @@ describe('the (package.json) command', () => {
             ['rimraf'], ['rimraf', 'rimraf-2.6.2.tgz']
         ];
         for (const directoryPath of paths) {
-            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+            const expectedPath = path.join(tarballsDirectory, ...directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
         }
     });
 
-    xit('should work for a big (react-scripts) package', async () => {
+    it('should work for a big (react-scripts) package', async () => {
+        const packageJson = require('./test-data/big/react-scripts/package.json');
         await commands.packageJsonCommand(getFilePath('./test-data/big/react-scripts/package.json'), {
             directory: tarballsDirectory,
             devDependencies: true,
             peerDependencies: true
         });
+
+        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.devDependencies));
+
+        for (const directoryPath of paths) {
+            const expectedPath = path.join(tarballsDirectory, directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
+        }
     });
 
-    xit('should work for a big (angular-cli) package', async () => {
+    it('should work for a big (angular-cli) package', async () => {
+        const packageJson = require('./test-data/big/angular-cli/package.json');
         await commands.packageJsonCommand(getFilePath('./test-data/big/angular-cli/package.json'), {
             directory: tarballsDirectory,
             devDependencies: true,
             peerDependencies: true
         });
-    });
 
+        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.devDependencies));
+
+        for (const directoryPath of paths) {
+            const expectedPath = path.join(tarballsDirectory, directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
+        }
+    });
 });
 
 describe('the (package-lock.json) command', () => {
@@ -72,8 +94,14 @@ describe('the (package-lock.json) command', () => {
         await commands.packageLockCommand(getFilePath('./test-data/simple/package-lock.json'), {
             directory: tarballsDirectory
         });
-        expect(fs.existsSync(path.join(tarballsDirectory), 'express')).toBeTruthy();
-        expect(fs.existsSync(path.join(tarballsDirectory), 'express', 'express-4.16.4.tgz')).toBeTruthy();
+        const paths = [
+            ['express'],
+            ['express', 'express-4.16.4.tgz'],
+        ];
+        for (const directoryPath of paths) {
+            const expectedPath = path.join(tarballsDirectory, ...directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
+        }
     });
 
     it('should work for the current package', async () => {
@@ -83,7 +111,7 @@ describe('the (package-lock.json) command', () => {
         const paths = [
             ['colors'], ['colors', 'colors-1.3.0.tgz'],
             ['commander'], ['commander', 'commander-2.16.0.tgz'],
-            ['mkdirp'], ['mkdirp', 'mkdirp-0.5.1-tgz'],
+            ['mkdirp'], ['mkdirp', 'mkdirp-0.5.1.tgz'],
             ['request'], ['request', 'request-2.87.0.tgz'],
             ['request-promise'], ['request-promise', 'request-promise-4.2.2.tgz'],
             ['semver'], ['semver', 'semver-5.5.0.tgz'],
@@ -93,24 +121,41 @@ describe('the (package-lock.json) command', () => {
             ['rimraf'], ['rimraf', 'rimraf-2.6.2.tgz']
         ];
         for (const directoryPath of paths) {
-            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+            const expectedPath = path.join(tarballsDirectory, ...directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
         }
     });
 
-    xit('should work for a big (react-scripts) package', async () => {
-        await commands.packageJsonCommand(getFilePath('./test-data/big/react-scripts/package.json'), {
+    it('should work for a big (react-scripts) package', async () => {
+        const packageJson = require('./test-data/big/react-scripts/package.json');
+        await commands.packageLockCommand(getFilePath('./test-data/big/react-scripts/package-lock.json'), {
             directory: tarballsDirectory,
             devDependencies: true,
             peerDependencies: true
         });
+
+        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.devDependencies));
+
+        for (const directoryPath of paths) {
+            const expectedPath = path.join(tarballsDirectory, directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
+        }
     });
 
-    xit('should work for a big (angular-cli) package', async () => {
-        await commands.packageJsonCommand(getFilePath('./test-data/big/angular-cli/package.json'), {
+    it('should work for a big (angular-cli) package', async () => {
+        const packageJson = require('./test-data/big/angular-cli/package.json');
+        await commands.packageLockCommand(getFilePath('./test-data/big/angular-cli/package-lock.json'), {
             directory: tarballsDirectory,
             devDependencies: true,
             peerDependencies: true
         });
+
+        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.devDependencies));
+
+        for (const directoryPath of paths) {
+            const expectedPath = path.join(tarballsDirectory, directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
+        }
     });
 
 });
@@ -145,24 +190,41 @@ describe('the (package) command', () => {
             ['rimraf'],
         ];
         for (const directoryPath of paths) {
-            expect(fs.existsSync(path.join(tarballsDirectory), ...directoryPath)).toBeTruthy();
+            const expectedPath = path.join(tarballsDirectory, ...directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
         }
     });
 
-    xit('should work for a big (react-scripts) package', async () => {
-        await commands.packageJsonCommand(getFilePath('./test-data/big/react-scripts/package.json'), {
+    it('should work for a big (react-scripts) package', async () => {
+        const packageJson = require('./test-data/big/react-scripts/package.json');
+        await commands.packageCommand(packageJson.name, packageJson.version, {
             directory: tarballsDirectory,
             devDependencies: true,
             peerDependencies: true
         });
+
+        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.devDependencies));
+
+        for (const directoryPath of paths) {
+            const expectedPath = path.join(tarballsDirectory, directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
+        }
     });
 
-    xit('should work for a big (angular-cli) package', async () => {
-        await commands.packageJsonCommand(getFilePath('./test-data/big/angular-cli/package.json'), {
+    fit('should work for a big (angular-cli) package', async () => {
+        const packageJson = require('./test-data/big/angular-cli/package.json');
+        await commands.packageCommand(packageJson.name, packageJson.version, {
             directory: tarballsDirectory,
             devDependencies: true,
             peerDependencies: true
         });
+
+        const paths = Object.keys(packageJson.dependencies).concat(...Object.keys(packageJson.devDependencies));
+
+        for (const directoryPath of paths) {
+            const expectedPath = path.join(tarballsDirectory, directoryPath);
+            expect(fs.existsSync(expectedPath)).toBeTruthy(`the path ${expectedPath} should exist`);
+        }
     });
 
 });
