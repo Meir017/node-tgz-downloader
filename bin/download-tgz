@@ -21,12 +21,14 @@ program
     .command('package-lock <uri>')
     .description('download tarballs based on a package-lock.json')
     .option('--directory [directory]')
+    .option('--registry [registry]')
     .action((uri, command) => commands.packageLockCommand(uri, command));
 
 program
     .command('package <name> [version]')
     .description('download tarballs based on a package and a version')
     .option('--directory [directory]')
+    .option('--registry [registry]')
     .option('--devDependencies')
     .option('--peerDependencies')
     .action((name, version, command) => commands.packageCommand(name, version, command));
@@ -35,6 +37,7 @@ program
     .command('package-json <uri>')
     .description('download tarballs based on a package.json')
     .option('--directory [directory]')
+    .option('--registry [registry]')
     .option('--devDependencies')
     .option('--peerDependencies')
     .action((uri, command) => commands.packageJsonCommand(uri, command));
@@ -43,6 +46,7 @@ program
     .command('search <keyword>')
     .description('download tarballs based on a npm registry search results')
     .option('--directory [directory]')
+    .option('--registry [registry]')
     .option('--devDependencies')
     .option('--peerDependencies')
     .action((keyword, command) => commands.searchCommand(keyword, command));
@@ -51,6 +55,7 @@ program
     .command('generate <name> [version]')
     .description('generates the download links for a giving package and a version')
     .option('--outputFile [outputFile]')
+    .option('--registry [registry]')
     .option('--devDependencies')
     .option('--peerDependencies')
     .action((name, version, command) => commands.generateCommand(name, version, command));
