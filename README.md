@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/Meir017/node-tgz-downloader/tree/master.svg?style=svg)](https://circleci.com/gh/Meir017/node-tgz-downloader/tree/master)
+[![Node.js CI](https://github.com/Meir017/node-tgz-downloader/actions/workflows/test.yml/badge.svg)](https://github.com/Meir017/node-tgz-downloader/actions/workflows/test.yml)
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
 
