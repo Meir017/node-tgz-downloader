@@ -16,4 +16,4 @@ jobs:
         with:
           node-version: 16.x
       - run: npm ci
-      - run: node bin/download-tgz package-json https://gist.github.com/Meir017/c60b50d3076bfb9a9eea662d31dab37d/raw/293f8655c5b566bc805e858bb542e08b46e37aa8/package-lock.json --registry=https://registry.npm.taobao.org
+      - run: node bin/download-tgz package-lock https://gist.github.com/Meir017/c60b50d3076bfb9a9eea662d31dab37d/raw/293f8655c5b566bc805e858bb542e08b46e37aa8/package-lock.json --registry=https://registry.npm.taobao.org
