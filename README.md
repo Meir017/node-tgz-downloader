@@ -76,3 +76,12 @@ download-tgz search tgz
 [npm-url]: https://npmjs.org/package/node-tgz-downloader
 [downloads-image]: https://img.shields.io/npm/dm/node-tgz-downloader.svg
 [downloads-url]: https://npmjs.org/package/node-tgz-downloader
+
+### HttpsAgent Configuration
+
+The tool supports the **https_proxy** environment variable.
+Do not forget to specify protocol and port.
+
+```bash
+export https_proxy='https://proxy_url:port'
+```
