@@ -17,11 +17,14 @@ const commands = require('../lib/commands');
 
 program.version(packageJson.version);
 
+const cpuCount = require('os').cpus().length;
+
 program
     .command('package-lock <uri>')
     .description('download tarballs based on a package-lock.json')
     .option('--directory [directory]')
     .option('--registry [registry]')
+    .option('-c, --concurrency <concurrency>', 'number of concurrent download', commands.parseConcurrency, cpuCount)
     .action((uri, command) => commands.packageLockCommand(uri, command));
 
 program
@@ -31,6 +34,7 @@ program
     .option('--registry [registry]')
     .option('--devDependencies')
     .option('--peerDependencies')
+    .option('-c, --concurrency <concurrency>', 'number of concurrent download', commands.parseConcurrency, cpuCount)
     .action((name, version, command) => commands.packageCommand(name, version, command));
 
 program
@@ -40,6 +44,7 @@ program
     .option('--registry [registry]')
     .option('--devDependencies')
     .option('--peerDependencies')
+    .option('-c, --concurrency <concurrency>', 'number of concurrent download', commands.parseConcurrency, cpuCount)
     .action((uri, command) => commands.packageJsonCommand(uri, command));
 
 program
