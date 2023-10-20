@@ -113,6 +113,13 @@ describe('the (package-lock.json) command', () => {
         });
     });
 
+    it('should work for a v3 lockfile (vue-cli)', async () => {
+        await commands.packageLockCommand(getFilePath('./test-data/v3-lockfile/vue-cli/package-lock.json'), {
+            directory: tarballsDirectory,
+            devDependencies: true,
+            peerDependencies: true
+        });
+    });
 });
 
 describe('the (package) command', () => {
