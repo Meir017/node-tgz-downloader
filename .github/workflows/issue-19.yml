@@ -1,0 +1,19 @@
+name: Issue19
+
+on:
+  pull_request:
+    branches: 
+      - master
+
+jobs:
+  test:
+    name: Test on node ${{ matrix.node_version }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm ci
+      - run: node bin/download-tgz package-lock https://gist.github.com/Meir017/c60b50d3076bfb9a9eea662d31dab37d/raw/293f8655c5b566bc805e858bb542e08b46e37aa8/package-lock.json --registry=https://registry.npm.taobao.org
