@@ -2,6 +2,9 @@
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
 
+> [!WARNING]
+> **This package is no longer actively maintained.** Feel free to fork this repository and continue its development if you find it useful.
+
 # node-tgz-downloader
 Downloads all of the tarballs based on one of the following:
 
