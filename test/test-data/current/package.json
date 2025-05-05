@@ -7,7 +7,7 @@
         "mkdirp": "0.5.1",
         "request": "2.87.0",
         "request-promise": "4.2.2",
-        "semver": "5.5.0",
+        "semver": "5.7.2",
         "tar": "4.4.6"
     },
     "devDependencies": {
