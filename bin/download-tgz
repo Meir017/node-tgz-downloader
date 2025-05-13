@@ -47,6 +47,17 @@ program
     .option('-c, --concurrency <concurrency>', 'number of concurrent download', commands.parseConcurrency, cpuCount)
     .action((uri, command) => commands.packageJsonCommand(uri, command));
 
+
+program
+    .command('package-json-deep <uri>')
+    .description('download deep tarballs based on a package.json')
+    .option('--directory [directory]')
+    .option('--registry [registry]')
+    .option('--devDependencies')
+    .option('--peerDependencies')
+    .option('-c, --concurrency <concurrency>', 'number of concurrent download', commands.parseConcurrency, cpuCount)
+    .action((uri, command) => commands.deepPackageJsonCommand(uri, command));
+
 program
     .command('search <keyword>')
     .description('download tarballs based on a npm registry search results')
